@@ -33,8 +33,9 @@ public class Mine extends Task {
     @Override
     public void execute() {
         rock = Gui.loc.getRock();
+        final Area rockArea = Gui.loc.getRockAreas();
         final GameObject Rock = ctx.objects.select().id(rock).nearest().first().poll();
-        if (Rock.isInViewport() && ctx.players.local().getAnimation() == -1){
+        if (Rock.isInViewport() && ctx.players.local().getAnimation() == -1 && rockArea.contains(Rock)){
             Rock.interact("Mine");
             SMiner.status = "Mining";
             Condition.wait(new Callable<Boolean>() {

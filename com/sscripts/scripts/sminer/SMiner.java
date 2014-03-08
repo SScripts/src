@@ -111,6 +111,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
         expGain =  ctx.skills.getExperience(Skills.MINING) - startExp;
         if (!hide) {
         Graphics2D d = (Graphics2D)g;
+        g.clearRect(10, 65, 220, 170);
         g.drawRect(10, 65, 220, 170);
         d.setPaint(Color.WHITE);
         g.drawString("SMiner - by SScripts", 24, 85);

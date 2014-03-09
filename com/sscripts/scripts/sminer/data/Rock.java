@@ -12,7 +12,6 @@ public enum Rock {
     GOLD( new int[]{37312, 37310}, -1),
     MITHRIL( new int[]{11944,11942}, -1),
     ADAMANT( new int[]{11939,11941}, -1);
-    //RUNE( new int[]{145, 457, 755}, -1);
 
     private final int[] OBJECT_ID;
     private final int ore_ID;

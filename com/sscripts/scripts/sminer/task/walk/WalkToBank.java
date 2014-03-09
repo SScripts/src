@@ -19,7 +19,9 @@ public class WalkToBank extends Task {
     @Override
     public boolean activate() {
         final Area bankArea = Gui.loc.getBankAreas();
-        return !bankArea.contains(ctx.players.local().getLocation()) && ctx.backpack.select().count() == 28;
+        return !bankArea.contains(ctx.players.local().getLocation())
+                && ctx.backpack.select().count() == 28
+                && !SMiner.drop;
 
     }
 

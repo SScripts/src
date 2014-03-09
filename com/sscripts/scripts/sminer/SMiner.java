@@ -15,6 +15,7 @@ import sminer.task.framework.Task;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 @Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts")
@@ -110,23 +111,23 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
     public void repaint(Graphics g) {
         expGain =  ctx.skills.getExperience(Skills.MINING) - startExp;
         if (!hide) {
-        Graphics2D d = (Graphics2D)g;
-        g.clearRect(10, 65, 220, 170);
-        g.drawRect(10, 65, 220, 170);
-        d.setPaint(Color.WHITE);
-        g.drawString("SMiner - by SScripts", 24, 85);
-        g.drawString("Status: " + SMiner.status, 24, 105);
-        g.drawString("Time Run:" + runTime.toElapsedString(), 24, 125);
-        g.drawString("Lvls made:" + (ctx.skills.getLevel(Skills.MINING) - startLvl), 24, 145);
-        g.drawString("Current Lvl:" + ctx.skills.getLevel(Skills.MINING), 24, 165);
-        g.drawString("Mining EXP made(ph):" + expGain +" ("+perHour(expGain)+")", 24, 185);
-        g.drawString("Ores Mined:" + mined, 24, 205);
-        g.drawString(">>>Hide Paint<<<", 24, 225);
+            final BufferedImage paint = downloadImage("http://i.imgur.com/YyPLAhA.png");
+            g.drawImage(paint, 0, 300, null);
+            Graphics2D d = (Graphics2D)g;
+            d.setPaint(Color.WHITE);
+            g.drawString("" + SMiner.status, 210, 574);
+            g.drawString("" + runTime.toElapsedString(), 200, 415);
+            g.drawString("" + (ctx.skills.getLevel(Skills.MINING) - startLvl), 213, 509);
+            g.drawString("" + ctx.skills.getLevel(Skills.MINING), 235, 479);
+            g.drawString("" + expGain +" ("+perHour(expGain)+")", 200, 447);
+            g.drawString("" + mined, 223, 536);
+            g.drawString("HIDE PAINT", 30, 100);
         }
         else {
             Graphics2D d = (Graphics2D)g;
-            g.drawRect(10, 65, 220, 170);
-            d.setPaint(Color.WHITE);
+            d.setPaint(Color.BLACK);
+            g.drawString("SHOW PAINT", 30,100);
+
 
         }
 

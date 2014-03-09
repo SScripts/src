@@ -31,10 +31,10 @@ public enum Areas {
             new Tile(3267, 3165, 0)
     )),
     AHLK_THREE(new Area(
-            new Tile(3303,3308, 0),
+            new Tile(3304,3308, 0),
             new Tile(3295,3308, 0),
             new Tile(3294,3317, 0),
-            new Tile(3303,3317, 0)
+            new Tile(3304,3317, 0)
     ),
             new Area(
             new Tile(3267, 3175, 0),

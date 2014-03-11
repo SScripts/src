@@ -19,7 +19,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts", version = 1.1)
+@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts", version = 1.2)
 
 public class SMiner extends PollingScript implements PaintListener, MouseListener, MessageListener {
 
@@ -38,20 +38,16 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
         startExp = ctx.skills.getExperience(Skills.MINING);
         startTime = System.currentTimeMillis();
         EventQueue.invokeLater(new Runnable() {
-
             @Override
             public void run() {
                 new Gui(ctx, tasks);
-
-
             }
-
         });
     }
 
+
     @Override
     public int poll() {
-
         for (Task task : tasks) {
             if (task.activate()) {
                 task.execute();
@@ -60,6 +56,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
         }
         return 150;
     }
+
 
     @Override
     public void messaged(MessageEvent msg) {
@@ -72,6 +69,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
     Rectangle close = new Rectangle(10, 70, 170, 170);
     Rectangle open = new Rectangle(10, 70, 170, 170);
 
+
     @Override
     public void mouseClicked(MouseEvent e) {
         p = e.getPoint();
@@ -82,34 +80,34 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
         }
     }
 
+
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
     }
+
 
     public int perHour(int value) {
         return (int) ((value) * 3600000D / (System.currentTimeMillis() - startTime));
     }
 
+
     public String formatTime(final long time) {
         final int sec = (int) (time / 1000), h = sec / 3600, m = sec / 60 % 60, s = sec % 60;
         return (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
     }
+
 
     @Override
     public void repaint(Graphics g) {
@@ -131,11 +129,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
             Graphics2D d = (Graphics2D)g;
             d.setPaint(Color.BLACK);
             g.drawString("SHOW PAINT", 30,100);
-
-
         }
-
-
         g.setColor(Color.WHITE);
         g.drawLine(ctx.mouse.getLocation().x, ctx.mouse.getLocation().y - 5, ctx.mouse.getLocation().x, ctx.mouse.getLocation().y + 5);
         g.drawLine(ctx.mouse.getLocation().x - 5, ctx.mouse.getLocation().y, ctx.mouse.getLocation().x + 5, ctx.mouse.getLocation().y);

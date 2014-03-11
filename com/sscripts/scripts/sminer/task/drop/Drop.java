@@ -30,7 +30,17 @@ public class Drop extends Task {
         for (Item i: ctx.backpack.select().id(item)){
             i.interact("Drop");
             SMiner.status = "Dropping";
-            Random.nextInt(150,300);
+            wait(347);
+
         }
     }
+
+    public void wait(int ms) {
+        try {
+            Thread.sleep(Math.max(5, (int) (ms * Random.nextDouble(0.76, 1.45))));
+        } catch (InterruptedException ignored) {
+        }
+    }
+
+
 }

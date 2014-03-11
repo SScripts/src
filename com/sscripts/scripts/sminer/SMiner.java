@@ -19,11 +19,11 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts")
+@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts", version = 1.0)
 
 public class SMiner extends PollingScript implements PaintListener, MouseListener, MessageListener {
 
-    public static ArrayList<Task> tasks = new ArrayList<>();
+    public ArrayList<Task> tasks = new ArrayList<Task>();
 
     private int startLvl, startExp, mined, expGain;
     private long startTime;
@@ -41,7 +41,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
 
             @Override
             public void run() {
-                new Gui(ctx);
+                new Gui(ctx, tasks);
 
 
             }

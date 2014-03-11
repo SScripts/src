@@ -1,7 +1,5 @@
 package sminer.task.drop;
 
-
-import org.powerbot.script.lang.ItemQuery;
 import org.powerbot.script.methods.MethodContext;
 import org.powerbot.script.util.Random;
 import org.powerbot.script.wrappers.Item;

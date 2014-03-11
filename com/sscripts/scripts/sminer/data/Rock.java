@@ -9,9 +9,9 @@ public enum Rock {
     IRON( new int[]{11956,11955, 11954, 37307, 37309, 37308}, 440),
     COAL( new int[]{11931, 11932, 11930}, 453),
     SILVER( new int[]{11950, 11949, 37306, 37304, 37305},442),
-    GOLD( new int[]{37312, 37310}, -1),
-    MITHRIL( new int[]{11944,11942}, -1),
-    ADAMANT( new int[]{11939,11941}, -1);
+    GOLD( new int[]{37312, 37310}, 444),
+    MITHRIL( new int[]{11944,11942}, 447),
+    ADAMANT( new int[]{11939,11941}, 449);
 
     private final int[] OBJECT_ID;
     private final int ore_ID;

@@ -106,6 +106,11 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
         return (int) ((value) * 3600000D / (System.currentTimeMillis() - startTime));
     }
 
+    public String formatTime(final long time) {
+        final int sec = (int) (time / 1000), h = sec / 3600, m = sec / 60 % 60, s = sec % 60;
+        return (h < 10 ? "0" + h : h) + ":" + (m < 10 ? "0" + m : m) + ":" + (s < 10 ? "0" + s : s);
+    }
+
     @Override
     public void repaint(Graphics g) {
         expGain =  ctx.skills.getExperience(Skills.MINING) - startExp;
@@ -115,7 +120,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
             Graphics2D d = (Graphics2D)g;
             d.setPaint(Color.WHITE);
             g.drawString("" + SMiner.status, 210, 574);
-            g.drawString("" + Timer.format(getRuntime()), 200, 415);
+            g.drawString("" + formatTime(getTotalRuntime()), 200, 415);
             g.drawString("" + (ctx.skills.getLevel(Skills.MINING) - startLvl), 213, 509);
             g.drawString("" + ctx.skills.getLevel(Skills.MINING), 235, 479);
             g.drawString("" + expGain +" ("+perHour(expGain)+")", 200, 447);
@@ -135,4 +140,6 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
         g.drawLine(ctx.mouse.getLocation().x, ctx.mouse.getLocation().y - 5, ctx.mouse.getLocation().x, ctx.mouse.getLocation().y + 5);
         g.drawLine(ctx.mouse.getLocation().x - 5, ctx.mouse.getLocation().y, ctx.mouse.getLocation().x + 5, ctx.mouse.getLocation().y);
     }
+
+
 }

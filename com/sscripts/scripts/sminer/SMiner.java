@@ -19,7 +19,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts", version = 1.0)
+@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts", version = 1.1)
 
 public class SMiner extends PollingScript implements PaintListener, MouseListener, MessageListener {
 

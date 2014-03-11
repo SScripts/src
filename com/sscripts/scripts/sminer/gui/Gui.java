@@ -1,6 +1,7 @@
 package sminer.gui;
 
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -21,12 +22,8 @@ import sminer.task.walk.WalkToRock;
 
 public class Gui extends MethodProvider {
 
+
     private JFrame frame = new JFrame("SMiner - by SScripts");
-    private JPanel panel = new JPanel();
-    private JButton button = new JButton();
-    private JLabel label = new JLabel();
-    private JComboBox<Master> cb = new JComboBox<Master>(Master.values());
-    private JRadioButton ch = new JRadioButton();
 
     public static Master loc;
 
@@ -35,32 +32,30 @@ public class Gui extends MethodProvider {
         init();
     }
 
+
     public void init() {
 
-        frame.setBounds(200, 300, 270, 200);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setVisible(true);
-        frame.add(panel);
-        frame.setResizable(false);
 
-        panel.setLayout(null);
-        panel.add(button);
-        panel.add(label);
-        panel.add(cb);
-        panel.add(ch);
+        final JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
 
-        label.setBounds(10, 10, 230, 50);
-        label.setText("Select Ore and Location:");
+        final JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new FlowLayout());
 
-        cb.setBounds(10, 50, 230, 20);
+        final JLabel label = new JLabel("Select Location and Ore");
+        label.add(centerPanel);
 
-        ch.setBounds(10, 80, 230, 20);
-        ch.setText("Dropping?");
+        final JComboBox cb = new JComboBox(Master.values());
+        centerPanel.add(cb);
 
-        button.setText("Start");
-        button.setBounds(10, 120, 230, 20);
+        final JCheckBox ch = new JCheckBox("Dropping?");
+        centerPanel.add(ch);
 
-        button.addActionListener(new ActionListener() {
+
+
+        final JButton startButton = new JButton("Start");
+        startButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
@@ -80,5 +75,13 @@ public class Gui extends MethodProvider {
 
         });
 
+        mainPanel.add(label, BorderLayout.NORTH);
+        mainPanel.add(centerPanel, BorderLayout.CENTER);
+        mainPanel.add(startButton, BorderLayout.SOUTH);
+
+        frame.getContentPane().add(mainPanel);
+        frame.pack();
+
     }
+
 }

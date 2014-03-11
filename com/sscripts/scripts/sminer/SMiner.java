@@ -12,6 +12,7 @@ import org.powerbot.script.util.Timer;
 import sminer.task.framework.Task;
 
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -31,13 +32,8 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
     public static String status = "Waiting for input";
 
 
-    private Timer runTime = new Timer(0);
-
-
-
     @Override
     public void start() {
-        tasks.clear();
         startLvl = ctx.skills.getLevel(Skills.MINING);
         startExp = ctx.skills.getExperience(Skills.MINING);
         startTime = System.currentTimeMillis();
@@ -46,6 +42,8 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
             @Override
             public void run() {
                 new Gui(ctx);
+
+
             }
 
         });
@@ -117,7 +115,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
             Graphics2D d = (Graphics2D)g;
             d.setPaint(Color.WHITE);
             g.drawString("" + SMiner.status, 210, 574);
-            g.drawString("" + runTime.toElapsedString(), 200, 415);
+            g.drawString("" + Timer.format(getRuntime()), 200, 415);
             g.drawString("" + (ctx.skills.getLevel(Skills.MINING) - startLvl), 213, 509);
             g.drawString("" + ctx.skills.getLevel(Skills.MINING), 235, 479);
             g.drawString("" + expGain +" ("+perHour(expGain)+")", 200, 447);
@@ -138,7 +136,3 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
         g.drawLine(ctx.mouse.getLocation().x - 5, ctx.mouse.getLocation().y, ctx.mouse.getLocation().x + 5, ctx.mouse.getLocation().y);
     }
 }
-
-
-
-

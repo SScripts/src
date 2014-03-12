@@ -109,6 +109,9 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
     }
 
 
+    private final Font font = new Font("Arial", 1, 16);
+    private final Font mainfont = new Font("Arial", 1, 14);
+
     @Override
     public void repaint(Graphics g) {
         expGain =  ctx.skills.getExperience(Skills.MINING) - startExp;
@@ -117,8 +120,10 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
             g.drawImage(paint, 0, 300, null);
             Graphics2D d = (Graphics2D)g;
             d.setPaint(Color.WHITE);
-            g.drawString("" + SMiner.status, 210, 574);
-            g.drawString("" + formatTime(getTotalRuntime()), 200, 415);
+            g.setFont(font);
+            g.drawString("" + SMiner.status, 210, 577);
+            g.setFont(mainfont);
+            g.drawString("" + formatTime(getTotalRuntime()), 203, 416);
             g.drawString("" + (ctx.skills.getLevel(Skills.MINING) - startLvl), 213, 509);
             g.drawString("" + ctx.skills.getLevel(Skills.MINING), 235, 479);
             g.drawString("" + expGain +" ("+perHour(expGain)+")", 200, 447);

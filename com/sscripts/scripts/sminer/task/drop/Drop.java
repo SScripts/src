@@ -16,7 +16,8 @@ public class Drop extends Task {
 
     @Override
     public boolean activate() {
-        return SMiner.drop && ctx.backpack.select().count() == 28;
+        return SMiner.drop
+                && ctx.backpack.select().count() == 28;
     }
 
     @Override

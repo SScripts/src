@@ -19,7 +19,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts", version = 1.2)
+@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts", version = 1.3)
 
 public class SMiner extends PollingScript implements PaintListener, MouseListener, MessageListener {
 
@@ -133,6 +133,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
         else {
             Graphics2D d = (Graphics2D)g;
             d.setPaint(Color.BLACK);
+            g.setFont(mainfont);
             g.drawString("SHOW PAINT", 30,100);
         }
         g.setColor(Color.WHITE);

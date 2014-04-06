@@ -1,10 +1,10 @@
 package sminer.task.walk;
 
+import org.powerbot.script.Area;
+import org.powerbot.script.Condition;
+import org.powerbot.script.Tile;
+import org.powerbot.script.rt6.ClientContext;
 import sminer.gui.Gui;
-import org.powerbot.script.methods.MethodContext;
-import org.powerbot.script.util.Condition;
-import org.powerbot.script.wrappers.Area;
-import org.powerbot.script.wrappers.Tile;
 import sminer.SMiner;
 import sminer.task.framework.Task;
 
@@ -12,14 +12,14 @@ import java.util.concurrent.Callable;
 
 
 public class WalkToBank extends Task {
-    public WalkToBank(MethodContext ctx) {
+    public WalkToBank(ClientContext ctx) {
         super(ctx);
     }
 
     @Override
     public boolean activate() {
         final Area bankArea = Gui.loc.getBankAreas();
-        return !bankArea.contains(ctx.players.local().getLocation())
+        return !bankArea.contains(ctx.players.local().tile())
                 && ctx.backpack.select().count() == 28
                 && !SMiner.drop;
 
@@ -33,7 +33,7 @@ public class WalkToBank extends Task {
         Condition.wait(new Callable<Boolean>() {
             @Override
             public Boolean call() throws Exception {
-                return ctx.movement.getDistance(ctx.players.local(), ctx.movement.getDestination()) < 14;
+                return ctx.movement.distance(ctx.players.local().tile(), ctx.movement.destination()) < 14;
             }
         }, 250, 20);
 

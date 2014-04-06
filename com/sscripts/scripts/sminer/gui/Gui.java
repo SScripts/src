@@ -8,9 +8,9 @@ import java.util.List;
 
 import javax.swing.*;
 
+import org.powerbot.script.rt6.ClientAccessor;
+import org.powerbot.script.rt6.ClientContext;
 import sminer.data.Master;
-import org.powerbot.script.methods.MethodContext;
-import org.powerbot.script.methods.MethodProvider;
 import sminer.SMiner;
 import sminer.task.bank.CloseBank;
 import sminer.task.bank.Deposit;
@@ -22,7 +22,7 @@ import sminer.task.walk.WalkToBank;
 import sminer.task.walk.WalkToRock;
 
 
-public class Gui extends MethodProvider {
+public class Gui extends ClientAccessor {
 
     private List<Task> tasks;
 
@@ -30,7 +30,7 @@ public class Gui extends MethodProvider {
 
     public static Master loc;
 
-    public Gui(MethodContext ctx, List<Task> tasks) {
+    public Gui(ClientContext ctx, List<Task> tasks) {
         super(ctx);
         this.tasks = tasks;
         init();
@@ -64,6 +64,7 @@ public class Gui extends MethodProvider {
             @Override
             public void actionPerformed(ActionEvent arg0) {
                 loc = (Master) cb.getSelectedItem();
+                synchronized (tasks) {
                 tasks.add(new Deposit(ctx));
                 tasks.add(new OpenBank(ctx));
                 tasks.add(new CloseBank(ctx));
@@ -71,6 +72,8 @@ public class Gui extends MethodProvider {
                 tasks.add(new WalkToBank(ctx));
                 tasks.add(new WalkToRock(ctx));
                 tasks.add(new Drop(ctx));
+                    tasks.notifyAll();
+                }
                 if (ch.isSelected()) {
                     SMiner.drop = true;
                 }

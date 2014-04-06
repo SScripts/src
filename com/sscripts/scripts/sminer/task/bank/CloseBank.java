@@ -1,7 +1,8 @@
 package sminer.task.bank;
 
-import org.powerbot.script.methods.MethodContext;
-import org.powerbot.script.util.Condition;
+
+import org.powerbot.script.rt6.ClientContext;
+import org.powerbot.script.Condition;
 import sminer.SMiner;
 import sminer.task.framework.Task;
 
@@ -9,13 +10,16 @@ import java.util.concurrent.Callable;
 
 
 public class CloseBank extends Task {
-    public CloseBank(MethodContext ctx) {
+
+
+    public CloseBank(ClientContext ctx) {
         super(ctx);
     }
 
+
     @Override
     public boolean activate() {
-        return ctx.bank.isOpen() && ctx.backpack.select().isEmpty();
+        return ctx.bank.open() && ctx.backpack.select().isEmpty();
     }
 
     @Override
@@ -24,10 +28,12 @@ public class CloseBank extends Task {
             SMiner.status = "Closing Bank";
             Condition.wait(new Callable<Boolean>() {
                 public Boolean call() throws Exception {
-                    return !ctx.bank.isOpen();
+                    return !ctx.bank.open();
                 }
             }, 500, 2);
         }else ctx.bank.close();
         SMiner.status = "Closing Bank";
     }
+
+
 }

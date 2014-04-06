@@ -1,7 +1,8 @@
 package sminer.task.bank;
 
-import org.powerbot.script.methods.MethodContext;
-import org.powerbot.script.util.Condition;
+
+import org.powerbot.script.Condition;
+import org.powerbot.script.rt6.ClientContext;
 import sminer.SMiner;
 import sminer.task.framework.Task;
 
@@ -9,13 +10,13 @@ import java.util.concurrent.Callable;
 
 
 public class Deposit extends Task {
-    public Deposit(MethodContext ctx) {
+    public Deposit(ClientContext ctx) {
         super(ctx);
     }
 
     @Override
     public boolean activate() {
-        return ctx.bank.isOpen() && ctx.backpack.select().count() == 28;
+        return ctx.bank.opened() && ctx.backpack.select().count() == 28;
     }
 
     @Override

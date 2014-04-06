@@ -1,15 +1,10 @@
 package sminer;
 
+import org.powerbot.script.*;
+import org.powerbot.script.rt6.Skills;
 import sminer.gui.Gui;
-import org.powerbot.event.MessageEvent;
-import org.powerbot.event.MessageListener;
-import org.powerbot.event.PaintListener;
-import org.powerbot.script.Manifest;
-import org.powerbot.script.PollingScript;
-import org.powerbot.script.methods.Skills;
-import org.powerbot.script.util.Random;
-import org.powerbot.script.util.Timer;
 import sminer.task.framework.Task;
+
 
 
 import javax.swing.*;
@@ -17,13 +12,14 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 
-@Manifest(description = "Mines at different Locations", name = "SMiner", authors = "SScripts", version = 1.3)
+@Script.Manifest(description = "Mines at different Locations", name = "SMiner")
 
-public class SMiner extends PollingScript implements PaintListener, MouseListener, MessageListener {
+public class SMiner extends PollingScript<org.powerbot.script.rt6.ClientContext>  implements PaintListener, MouseListener, MessageListener {
 
-    public ArrayList<Task> tasks = new ArrayList<Task>();
+    public List<Task> tasks = Collections.synchronizedList(new ArrayList<Task>());
 
     private int startLvl, startExp, mined, expGain;
     private long startTime;
@@ -34,8 +30,8 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
 
     @Override
     public void start() {
-        startLvl = ctx.skills.getLevel(Skills.MINING);
-        startExp = ctx.skills.getExperience(Skills.MINING);
+        startLvl = ctx.skills.level(Skills.MINING);
+        startExp = ctx.skills.experience(Skills.MINING);
         startTime = System.currentTimeMillis();
         EventQueue.invokeLater(new Runnable() {
             @Override
@@ -47,14 +43,22 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
 
 
     @Override
-    public int poll() {
+    public void poll() {
+
+        synchronized(tasks) {
+            if (tasks.size() == 0) {
+                try {
+                    tasks.wait();
+                } catch (InterruptedException ignored) {}
+            }
+        }
+
         for (Task task : tasks) {
             if (task.activate()) {
                 task.execute();
-                return Random.nextInt(200, 450);
             }
         }
-        return 150;
+
     }
 
 
@@ -114,7 +118,7 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
 
     @Override
     public void repaint(Graphics g) {
-        expGain =  ctx.skills.getExperience(Skills.MINING) - startExp;
+        expGain =  ctx.skills.experience(Skills.MINING) - startExp;
         if (!hide) {
             final BufferedImage paint = downloadImage("http://i.imgur.com/YyPLAhA.png");
             g.drawImage(paint, 0, 300, null);
@@ -124,8 +128,8 @@ public class SMiner extends PollingScript implements PaintListener, MouseListene
             g.drawString("" + SMiner.status, 210, 577);
             g.setFont(mainfont);
             g.drawString("" + formatTime(getTotalRuntime()), 203, 416);
-            g.drawString("" + (ctx.skills.getLevel(Skills.MINING) - startLvl), 213, 509);
-            g.drawString("" + ctx.skills.getLevel(Skills.MINING), 235, 479);
+            g.drawString("" + (ctx.skills.level(Skills.MINING) - startLvl), 213, 509);
+            g.drawString("" + ctx.skills.level(Skills.MINING), 235, 479);
             g.drawString("" + expGain +" ("+perHour(expGain)+")", 200, 447);
             g.drawString("" + mined, 223, 536);
             g.drawString("HIDE PAINT", 30, 100);

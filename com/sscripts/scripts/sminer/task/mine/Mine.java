@@ -1,11 +1,11 @@
 package sminer.task.mine;
 
 
+import org.powerbot.script.Area;
+import org.powerbot.script.Condition;
+import org.powerbot.script.rt6.ClientContext;
+import org.powerbot.script.rt6.GameObject;
 import sminer.gui.Gui;
-import org.powerbot.script.methods.MethodContext;
-import org.powerbot.script.util.Condition;
-import org.powerbot.script.wrappers.Area;
-import org.powerbot.script.wrappers.GameObject;
 import sminer.SMiner;
 import sminer.task.framework.Task;
 
@@ -14,9 +14,10 @@ import java.util.concurrent.Callable;
 
 public class Mine extends Task {
 
-    public Mine(MethodContext ctx) {
+    public Mine(ClientContext ctx) {
         super(ctx);
     }
+
 
     private int[] rock;
 
@@ -25,8 +26,8 @@ public class Mine extends Task {
         rock = Gui.loc.getRock();
         final Area rockArea = Gui.loc.getRockAreas();
         return ctx.backpack.select().count() <28
-                && ctx.players.local().getAnimation() == -1
-                && rockArea.contains(ctx.players.local().getLocation());
+                && ctx.players.local().animation() == -1
+                && rockArea.contains(ctx.players.local().tile());
 
     }
 
@@ -35,23 +36,23 @@ public class Mine extends Task {
         rock = Gui.loc.getRock();
         final Area rockArea = Gui.loc.getRockAreas();
         final GameObject Rock = ctx.objects.select().id(rock).nearest().first().poll();
-        if (Rock.isInViewport()
-                && ctx.players.local().getAnimation() == -1
+        if (Rock.inViewport()
+                && ctx.players.local().animation() == -1
                 && rockArea.contains(Rock)
-                && !ctx.players.local().isInMotion()){
+                && !ctx.players.local().inMotion()){
             Rock.interact("Mine");
             SMiner.status = "Mining";
             Condition.wait(new Callable<Boolean>() {
                 public Boolean call() throws Exception {
-                    return ctx.players.local().getAnimation() == -1;
+                    return ctx.players.local().animation() == -1;
                 }
             }, 1000, 2);
         }else {
-            ctx.camera.turnTo(Rock.getLocation());
+            ctx.camera.turnTo(Rock);
             SMiner.status = "Looking for Rock";
             Condition.wait(new Callable<Boolean>() {
                 public Boolean call() throws Exception {
-                    return Rock.isInViewport();
+                    return Rock.inViewport();
                 }
             }, 500, 2);
         }

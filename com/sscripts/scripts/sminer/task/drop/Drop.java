@@ -1,16 +1,17 @@
 package sminer.task.drop;
 
-import org.powerbot.script.methods.Hud;
-import org.powerbot.script.methods.MethodContext;
-import org.powerbot.script.util.Random;
-import org.powerbot.script.wrappers.Item;
+
+import org.powerbot.script.Random;
+import org.powerbot.script.rt6.ClientContext;
+import org.powerbot.script.rt6.Hud;
+import org.powerbot.script.rt6.Item;
 import sminer.SMiner;
 import sminer.gui.Gui;
 import sminer.task.framework.Task;
 
 public class Drop extends Task {
 
-    public Drop(MethodContext ctx) {
+    public Drop(ClientContext ctx) {
         super(ctx);
     }
 
@@ -23,9 +24,9 @@ public class Drop extends Task {
     @Override
     public void execute() {
         final int item = Gui.loc.getOre();
-        if (!ctx.hud.view(Hud.Window.BACKPACK)){
+        if (!ctx.hud.open(Hud.Window.BACKPACK)){
             SMiner.status = "Opening Backpack";
-            ctx.hud.view(Hud.Window.BACKPACK);
+            ctx.hud.open(Hud.Window.BACKPACK);
         }
 
         for (Item i: ctx.backpack.select().id(item)){

@@ -1,8 +1,8 @@
 package sminer.data;
 
-import org.powerbot.script.wrappers.Area;
-import org.powerbot.script.wrappers.Tile;
 
+import org.powerbot.script.Area;
+import org.powerbot.script.Tile;
 
 public enum Areas {
 

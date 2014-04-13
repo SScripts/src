@@ -23,7 +23,7 @@ public class OpenBank extends Task {
 
     @Override
     public void execute() {
-        ctx.bank.opened();
+        ctx.bank.open();
         SMiner.status = "Opening Bank";
         Condition.wait(new Callable<Boolean>() {
         	public Boolean call() throws Exception {

@@ -2,12 +2,12 @@ package sminer;
 
 import org.powerbot.script.*;
 import org.powerbot.script.rt6.Skills;
+
+import sminer.data.Master;
 import sminer.gui.Gui;
 import sminer.task.framework.Task;
 
 
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -23,10 +23,12 @@ public class SMiner extends PollingScript<org.powerbot.script.rt6.ClientContext>
 
     private int startLvl, startExp, mined, expGain;
     private long startTime;
+    
     public static boolean drop = false;
 
     public static String status = "Waiting for input";
 
+    public static Master loc;
 
     @Override
     public void start() {

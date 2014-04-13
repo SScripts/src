@@ -24,16 +24,15 @@ public class CloseBank extends Task {
 
     @Override
     public void execute() {
-        if (ctx.bank.close()){
-            SMiner.status = "Closing Bank";
-            Condition.wait(new Callable<Boolean>() {
-                public Boolean call() throws Exception {
-                    return !ctx.bank.open();
-                }
-            }, 500, 2);
-        }else ctx.bank.close();
+        ctx.bank.close();
         SMiner.status = "Closing Bank";
+        Condition.wait(new Callable<Boolean>() {
+        	public Boolean call() throws Exception {
+        		return !ctx.bank.opened();
+        	}
+        }, 500, 2);
     }
+    
 
 
 }

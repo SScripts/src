@@ -5,7 +5,6 @@ import org.powerbot.script.Area;
 import org.powerbot.script.Condition;
 import org.powerbot.script.rt6.ClientContext;
 import org.powerbot.script.rt6.GameObject;
-import sminer.gui.Gui;
 import sminer.SMiner;
 import sminer.task.framework.Task;
 
@@ -23,8 +22,8 @@ public class Mine extends Task {
 
     @Override
     public boolean activate() {
-        rock = Gui.loc.getRock();
-        final Area rockArea = Gui.loc.getRockAreas();
+        rock = SMiner.loc.getRock();
+        final Area rockArea = SMiner.loc.getRockAreas();
         return ctx.backpack.select().count() <28
                 && ctx.players.local().animation() == -1
                 && rockArea.contains(ctx.players.local().tile());
@@ -33,8 +32,8 @@ public class Mine extends Task {
 
     @Override
     public void execute() {
-        rock = Gui.loc.getRock();
-        final Area rockArea = Gui.loc.getRockAreas();
+        rock = SMiner.loc.getRock();
+        final Area rockArea = SMiner.loc.getRockAreas();
         final GameObject Rock = ctx.objects.select().id(rock).nearest().first().poll();
         if (Rock.inViewport()
                 && ctx.players.local().animation() == -1

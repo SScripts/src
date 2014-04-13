@@ -28,7 +28,7 @@ public class Gui extends ClientAccessor {
 
     private JFrame frame = new JFrame("SMiner - by SScripts");
 
-    public static Master loc;
+
 
     public Gui(ClientContext ctx, List<Task> tasks) {
         super(ctx);
@@ -63,7 +63,7 @@ public class Gui extends ClientAccessor {
 
             @Override
             public void actionPerformed(ActionEvent arg0) {
-                loc = (Master) cb.getSelectedItem();
+                SMiner.loc = (Master) cb.getSelectedItem();
                 synchronized (tasks) {
                 tasks.add(new Deposit(ctx));
                 tasks.add(new OpenBank(ctx));
@@ -72,6 +72,7 @@ public class Gui extends ClientAccessor {
                 tasks.add(new WalkToBank(ctx));
                 tasks.add(new WalkToRock(ctx));
                 tasks.add(new Drop(ctx));
+
                     tasks.notifyAll();
                 }
                 if (ch.isSelected()) {

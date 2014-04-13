@@ -4,7 +4,6 @@ import org.powerbot.script.Area;
 import org.powerbot.script.Condition;
 import org.powerbot.script.Tile;
 import org.powerbot.script.rt6.ClientContext;
-import sminer.gui.Gui;
 import sminer.SMiner;
 import sminer.task.framework.Task;
 
@@ -18,17 +17,18 @@ public class WalkToBank extends Task {
 
     @Override
     public boolean activate() {
-        final Area bankArea = Gui.loc.getBankAreas();
+        final Area bankArea = SMiner.loc.getBankAreas();
         return !bankArea.contains(ctx.players.local().tile())
                 && ctx.backpack.select().count() == 28
                 && !SMiner.drop;
+
 
     }
 
     @Override
     public void execute() {
-        Tile[] path = Gui.loc.getBankPath();
-        ctx.movement.newTilePath(path).traverse();
+        Tile[] path = SMiner.loc.getBankPath();
+        ctx.movement.newTilePath(path).randomize(0, 2).traverse();
         SMiner.status = "Walking to Bank";
         Condition.wait(new Callable<Boolean>() {
             @Override

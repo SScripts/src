@@ -18,14 +18,14 @@ public class WalkToRock extends Task {
 
     @Override
     public boolean activate() {
-        final Area rockArea = Gui.loc.getRockAreas();
+        final Area rockArea = SMiner.loc.getRockAreas();
         return !rockArea.contains(ctx.players.local().tile()) && ctx.backpack.isEmpty();
     }
 
     @Override
     public void execute() {
-        Tile[] path = Gui.loc.getPath();
-        ctx.movement.newTilePath(path).traverse();
+        Tile[] path = SMiner.loc.getPath();
+        ctx.movement.newTilePath(path).randomize(0, 2).traverse();
         SMiner.status = "Walking to Mine";
         Condition.wait(new Callable<Boolean>() {
             @Override

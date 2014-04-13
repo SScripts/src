@@ -21,14 +21,13 @@ public class Deposit extends Task {
 
     @Override
     public void execute() {
-        if (ctx.bank.depositInventory()){
-            SMiner.status = "Deposit Inventory";
-            Condition.wait(new Callable<Boolean>() {
-                public Boolean call() throws Exception {
-                    return ctx.backpack.select().isEmpty();
-                }
-            }, 500, 2);
-        } else ctx.bank.depositInventory();
+        ctx.bank.depositInventory();
         SMiner.status = "Deposit Inventory";
+        Condition.wait(new Callable<Boolean>() {
+        	public Boolean call() throws Exception {
+        		return ctx.backpack.select().isEmpty();
+        	}
+        }, 500, 2);
+
     }
 }

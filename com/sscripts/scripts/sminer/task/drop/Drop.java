@@ -6,7 +6,6 @@ import org.powerbot.script.rt6.ClientContext;
 import org.powerbot.script.rt6.Hud;
 import org.powerbot.script.rt6.Item;
 import sminer.SMiner;
-import sminer.gui.Gui;
 import sminer.task.framework.Task;
 
 public class Drop extends Task {
@@ -17,24 +16,24 @@ public class Drop extends Task {
 
     @Override
     public boolean activate() {
-        return SMiner.drop
-                && ctx.backpack.select().count() == 28;
+        return ctx.backpack.select().count() == 28
+        		&& SMiner.drop;
     }
 
     @Override
     public void execute() {
-        final int item = Gui.loc.getOre();
-        if (!ctx.hud.open(Hud.Window.BACKPACK)){
+        final int item = SMiner.loc.getOre();
+        if (!ctx.hud.opened(Hud.Window.BACKPACK)){
             SMiner.status = "Opening Backpack";
             ctx.hud.open(Hud.Window.BACKPACK);
         }
 
-        for (Item i: ctx.backpack.select().id(item)){
-            i.interact("Drop");
-            SMiner.status = "Dropping";
-            wait(347);
+        Item i = ctx.backpack.select().id(item).poll();
+        i.interact("Drop");
+        SMiner.status = "Dropping";
+        wait(347);
 
-        }
+        
     }
 
     public void wait(int ms) {

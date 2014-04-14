@@ -19,8 +19,7 @@ public class WalkToBank extends Task {
     public boolean activate() {
         final Area bankArea = SMiner.loc.getBankAreas();
         return !bankArea.contains(ctx.players.local().tile())
-                && ctx.backpack.select().count() == 28
-                && !SMiner.drop;
+                && ctx.backpack.select().count() == 28;
 
 
     }

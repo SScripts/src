@@ -24,7 +24,7 @@ public class SMiner extends PollingScript<org.powerbot.script.rt6.ClientContext>
     private int startLvl, startExp, mined, expGain;
     private long startTime;
     
-    public static boolean drop = false;
+
 
     public static String status = "Waiting for input";
 

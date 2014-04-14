@@ -69,14 +69,18 @@ public class Gui extends ClientAccessor {
                 tasks.add(new OpenBank(ctx));
                 tasks.add(new CloseBank(ctx));
                 tasks.add(new Mine(ctx));
-                tasks.add(new WalkToBank(ctx));
-                tasks.add(new WalkToRock(ctx));
-                tasks.add(new Drop(ctx));
 
-                    tasks.notifyAll();
-                }
+                tasks.add(new WalkToRock(ctx));
+
+
+                   
+                
                 if (ch.isSelected()) {
-                    SMiner.drop = true;
+                    tasks.add(new Drop(ctx));
+                }else {
+                    tasks.add(new WalkToBank(ctx));
+                }
+                tasks.notifyAll();
                 }
                 frame.dispose();
             }

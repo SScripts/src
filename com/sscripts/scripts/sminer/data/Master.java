@@ -7,29 +7,29 @@ import org.powerbot.script.Tile;
 public enum Master {
 
 
-    VARROCK_TIN(Path.VAR, Rock.TIN, Areas.VARO),
-    VARROCK_IRON(Path.VAR, Rock.IRON, Areas.VARO),
-    VARROCK_CLAY(Path.VAR, Rock.CLAY, Areas.VARO),
-    VARROCK_SILVER(Path.VAR, Rock.SILVER, Areas.VARO),
-    BARBARIAN_VILLAGE_COAL(Path.BAR, Rock.COAL, Areas.BARB),
-    BARBARIAN_VILLAGE_TIN(Path.BAR, Rock.TIN, Areas.BARB),
-    AL_KHARID_IRON_FIRST_SPOT(Path.ALK_ONE, Rock.IRON, Areas.AHLK_ONE),
-    AL_KHARID_IRON_SECOUND_SPOT(Path.ALK_TWO, Rock.IRON,Areas.AHLK_TWO),
-    AL_KHARID_IRON_THIRD_SPOT(Path.ALK_THR, Rock.IRON, Areas.AHLK_THREE),
-    AL_KHARID_GOLD(Path.ALK_ONE, Rock.GOLD, Areas.AHLK_ONE),
-    AL_KHARID_COAL(Path.ALK_TWO, Rock.COAL, Areas.AHLK_TWO),
-    AL_KHARID_MITHRIL(Path.ALK_TWO, Rock.MITHRIL, Areas.AHLK_TWO),
-    AL_KHARID_SILVER(Path.ALK_TWO, Rock.SILVER, Areas.AHLK_TWO),
-    AL_KHARID_ADAMANTIT(Path.ALK_THR, Rock.ADAMANT, Areas.AHLK_THREE);
+    VARROCK_TIN(Path.VAR, Rock.TIN, Field.VARO),
+    VARROCK_IRON(Path.VAR, Rock.IRON, Field.VARO),
+    VARROCK_CLAY(Path.VAR, Rock.CLAY, Field.VARO),
+    VARROCK_SILVER(Path.VAR, Rock.SILVER, Field.VARO),
+    BARBARIAN_VILLAGE_COAL(Path.BAR, Rock.COAL, Field.BARB),
+    BARBARIAN_VILLAGE_TIN(Path.BAR, Rock.TIN, Field.BARB),
+    AL_KHARID_IRON_FIRST_SPOT(Path.ALK_ONE, Rock.IRON, Field.AHLK_ONE),
+    AL_KHARID_IRON_SECOUND_SPOT(Path.ALK_TWO, Rock.IRON,Field.AHLK_TWO),
+    AL_KHARID_IRON_THIRD_SPOT(Path.ALK_THR, Rock.IRON, Field.AHLK_THREE),
+    AL_KHARID_GOLD(Path.ALK_ONE, Rock.GOLD, Field.AHLK_ONE),
+    AL_KHARID_COAL(Path.ALK_TWO, Rock.COAL, Field.AHLK_TWO),
+    AL_KHARID_MITHRIL(Path.ALK_TWO, Rock.MITHRIL, Field.AHLK_TWO),
+    AL_KHARID_SILVER(Path.ALK_TWO, Rock.SILVER, Field.AHLK_TWO),
+    AL_KHARID_ADAMANTIT(Path.ALK_THR, Rock.ADAMANT, Field.AHLK_THREE);
 
     private final Path path;
     private final Rock rock;
-    private final Areas areas;
+    private final Field area;
 
-    private Master(final Path path, final Rock rock, final Areas areas){
+    private Master(final Path path, final Rock rock, final Field area){
         this.path = path;
         this.rock = rock;
-        this.areas = areas;
+        this.area = area;
     }
 
     public Tile[] getPath() {
@@ -49,10 +49,10 @@ public enum Master {
     }
 
     public Area getRockAreas() {
-        return  areas.getRockArea();
+        return  area.getRockArea();
     }
     public Area getBankAreas() {
-        return areas.getBankArea();
+        return area.getBankArea();
     }
 
     @Override

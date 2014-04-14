@@ -32,16 +32,22 @@ public class SMiner extends PollingScript<org.powerbot.script.rt6.ClientContext>
 
     @Override
     public void start() {
-        startLvl = ctx.skills.level(Skills.MINING);
-        startExp = ctx.skills.experience(Skills.MINING);
-        startTime = System.currentTimeMillis();
-        EventQueue.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new Gui(ctx, tasks);
-            }
-        });
+    	if (ctx.game.loggedIn()) {
+    		startLvl = ctx.skills.level(Skills.MINING);
+            startExp = ctx.skills.experience(Skills.MINING);
+            startTime = System.currentTimeMillis();
+            EventQueue.invokeLater(new Runnable() {
+            	@Override
+            	public void run() {
+            		new Gui(ctx, tasks);
+            	}
+            });
+    	}else {
+    		System.out.println("Start script logged in!");
+    		ctx.bot().close();
+    	}
     }
+    
 
 
     @Override

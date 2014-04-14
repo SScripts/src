@@ -39,13 +39,14 @@ public class Mine extends Task {
                 && ctx.players.local().animation() == -1
                 && rockArea.contains(Rock)
                 && !ctx.players.local().inMotion()){
-            Rock.interact("Mine");
-            SMiner.status = "Mining";
-            Condition.wait(new Callable<Boolean>() {
-                public Boolean call() throws Exception {
-                    return ctx.players.local().animation() == -1;
-                }
-            }, 1000, 2);
+            if (Rock.interact("Mine")){
+            	SMiner.status = "Mining";
+            	Condition.wait(new Callable<Boolean>() {
+            		public Boolean call() throws Exception {
+            			return ctx.players.local().animation() == -1;
+            		}
+            	}, 1000, 2);
+           	}
         }else {
             ctx.camera.turnTo(Rock);
             SMiner.status = "Looking for Rock";

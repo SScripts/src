@@ -28,9 +28,10 @@ public class Drop extends Task {
         }
 
         Item i = ctx.backpack.select().id(item).poll();
-        i.interact("Drop");
-        SMiner.status = "Dropping";
-        wait(347);
+        if(i.interact("Drop")) {
+        	SMiner.status = "Dropping";
+        	wait(347);
+        }
 
         
     }
